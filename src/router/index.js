@@ -1,27 +1,50 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
+const __import__ = fileName => () => import(`@/views/${fileName}.vue`);
+
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '/welcome',
+    component: __import__('Entry'),
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/',
+    redirect: '/home',
+  },
+  {
+    path: '/home',
+    component: __import__('Home'),
+    children: [
+      {
+        path: '',
+        component: __import__('ArticleList'),
+      },
+      {
+        path: 'article/:id',
+        component: __import__('ArticleDetail'),
+      },
+    ]
+  },
+  {
+    path: '/error',
+    component: __import__('NotFound'),
+  },
+  {
+    path: '*',
+    redirect: '/error',
   }
 ]
 
 const router = new VueRouter({
   routes
+})
+
+// 路由后置钩子 处理页面辅助功能、更改页面标题等
+router.afterEach((to, from) => {
+  window.scrollTo(0, 0);
 })
 
 export default router

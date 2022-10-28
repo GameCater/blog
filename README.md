@@ -1,19 +1,17 @@
 # blog
 
-## Project setup
-```
-npm install
-```
+## 主要功能
+- 响应式布局，适合手机端和PC端
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 依赖
+- papercss css主体框架
+- animate.css css动画框架
+- vuex 数据仓库，全局共享数据管理
+- vue-router 前端路由管理
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 困惑
+- 响应式布局多种实现方式
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 进度
+- 2022-10-27 基础首页布局框架
+- 2022-10-28 优化响应式布局，框架拆解为各个组件，配置前端路由
