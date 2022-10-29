@@ -95,9 +95,9 @@ export default {
 .to-top {
   position: fixed;
   right: 50px;
-  bottom: 50px;
+  bottom: 30px;
   border-radius: 50%;
-  padding: 20px;
+  padding: 5vw;
 }
 .root {
   font-size: calc(0.6rem + 0.5vw) !important;

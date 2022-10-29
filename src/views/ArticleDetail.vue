@@ -11,7 +11,9 @@
       <h3>title1</h3>
       <h2>Section 4</h2>
     </div>
-    <div class="container-lg border border-primary" style="height: 300px; margin-top: 20px;">Comment</div>
+    <div class="container-lg border border-primary" style="height: 300px; margin-top: 20px;">
+      
+    </div>
   </div>
 </template>
 
