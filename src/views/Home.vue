@@ -1,7 +1,7 @@
 <template>
   <div class="root" id="#top">
     <!-- 主体 -->
-    <div style="width: 80vw; margin: 0 auto;">
+    <div style="width: 80vw; margin: 0 auto; min-height: calc(100vh - 50px);">
       <!--  style="min-width: 400px;" -->
       <div class="row flex-top flex-spaces">
         <!-- 侧边栏 -->
@@ -26,7 +26,7 @@
 
     <!-- toTop -->
     <div class="to-top">
-      <a href="##top" class="paper-btn margin">^</a>
+      <span @click="backTop" class="paper-btn margin">^</span>
     </div>
   </div>
 </template>
@@ -82,6 +82,16 @@ export default {
       } else {
         this.hideImage = false;
       }
+    },
+    // 回到顶部
+    backTop() {
+      let top = document.documentElement.scrollTop || document.body.scrollTop;
+      const timer = setInterval(() => {
+        document.documentElement.scrollTop = document.body.scrollTop = top -= 30;
+        if (top <= 0) {
+          clearInterval(timer);
+        }
+      }, 10);
     }
   },
   created() {
@@ -95,9 +105,9 @@ export default {
 .to-top {
   position: fixed;
   right: 50px;
-  bottom: 30px;
+  bottom: 10px;
   border-radius: 50%;
-  padding: 5vw;
+  padding: 1vw;
 }
 .root {
   font-size: calc(0.6rem + 0.5vw) !important;

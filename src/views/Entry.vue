@@ -41,7 +41,6 @@ export default {
       this.$router.push("/home");
     },
     controlAudio(el) {
-      console.log(el);
       if (el.paused) {
         el.play();
         this.mode = true;
@@ -67,6 +66,8 @@ export default {
     },
     initialAudioPlayer() {
       var song = this.$refs.audio;
+
+      song.load();
     
       song.src = 'http://music.163.com/song/media/outer/url?id=1491607307.mp3';
       song.loop = true; // 循环播放
