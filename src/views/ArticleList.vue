@@ -28,7 +28,9 @@ export default {
       paging: {
         pageSize: 3,
         page: 1
-      }
+      },
+      selectedTags: [],
+      articleDataStack: [],
     }
   },
   computed: {
@@ -39,6 +41,34 @@ export default {
         return '加载更多。。。';
       }
     }
+  },
+  watch: {
+    selectedTags(val, oldVal) {
+      // console.log(val === oldVal ,val.length, oldVal.length);
+      // 筛选 选择包含选中标签的文章 标签越多 精确度越高
+      this.articlesInfo.data = this.articlesInfo.data.filter((article) => {
+        return val.every(tagId => {
+          let i = 0;
+          for (; i < article.tags.length; i ++) {
+            if (article.tags[i]._id === tagId) {
+              return true;
+            }
+          }
+          if (i === article.tags.length) return false;
+        });
+      });
+
+      // 撤销标签
+      if (val.length < oldVal.length) {
+        this.articleDataStack.pop();
+        const data = [...this.articleDataStack[this.articleDataStack.length - 1]];
+
+        this.articlesInfo.data = data;
+      } else {
+        // 选择标签时
+        this.articleDataStack.push([...this.articlesInfo.data]);
+      }
+    },
   },
   methods: {
     fetchArticles() {
@@ -56,6 +86,9 @@ export default {
         this.articlesInfo.data.push(...handled);
         this.articlesInfo.total = data.total;
         this.articlesInfo.maxPage = data.maxPage;
+
+        // 备份一份数据
+        this.articleDataStack.splice(0, 1, [...this.articlesInfo.data]);
       })
     },
     loadMore() {
@@ -67,6 +100,15 @@ export default {
   },
   created() {
     this.fetchArticles();
+  },
+  mounted() {
+    this.$bus.$on('tagsChanged', (selectedTags) => {
+      // console.log('监听到tagsChanged', selectedTags);
+      this.selectedTags = [...selectedTags];
+    });
+  },
+  beforeDestroy() {
+    this.$bus.$off('tagsChanged');
   }
 }
 </script>
