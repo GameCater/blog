@@ -1,5 +1,5 @@
 <template>
-  <div class="container-lg border border-primary" style="margin-top: 60px; padding: 10px 20px;">
+  <div class="container-lg border border-primary paper" style="margin-top: 60px; padding: 10px 20px;">
     <!-- 文章列表 -->
     <ArticleCard
       v-for="(article, idx) in articlesInfo.data" 
@@ -26,7 +26,7 @@ export default {
         maxPage: 1
       },
       paging: {
-        pageSize: 3,
+        pageSize: 10,
         page: 1
       },
       selectedTags: [],

@@ -1,17 +1,11 @@
 <template>
   <div>
-    <div class="container-lg border border-primary" style="margin-top: 60px; padding: 10px 20px;">
-      <h1>Article Detail</h1>
-      <h2>Section 1</h2>
-      <h3>title1</h3>
-      <h3>title2</h3>
-      <h2>Section 2</h2>
-      <h3>title1</h3>
-      <h2>Section 3</h2>
-      <h3>title1</h3>
-      <h2>Section 4</h2>
+    <div class="container-lg border border-primary paper" style="margin-top: 60px; padding: 10px 20px;">
+      <div class="content" v-html="content">
+
+      </div>
     </div>
-    <div class="container-lg border border-primary" style="height: 300px; margin-top: 20px;">
+    <div class="container-lg border border-primary paper" style="height: 300px; margin-top: 20px;">
       
     </div>
   </div>
@@ -19,10 +13,32 @@
 
 <script>
 export default {
-  
+  data() {
+    return {
+      content: ''
+    }
+  },
+  methods: {
+    fetchArticleDetail() {
+      this.$http.get(`/article/${this.$route.params.id}`).then(response => {
+        // console.log(response.data);
+        const { content } = response.data.data;
+        this.content = content;
+      })
+    }
+  },
+  mounted() {
+    this.fetchArticleDetail();
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.content {
+  margin: 0 auto;
+  font-family: "Microsoft YaHei", arial, sans-serif;
+  color: #444444;
+  padding: 0 10px;
+  font-size: .9em;
+}
 </style>

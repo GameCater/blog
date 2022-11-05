@@ -1,6 +1,6 @@
 <template>
   <div class="card-wrap" style="border-bottom: 2px solid #eee;" v-if="article">
-    <router-link :to="`/home/article/${article.link}`" class="box">
+    <router-link :to="`/home/article/${article._id}`" class="box">
       <div class="box-content">
         <h2 style="font-size: 2em;">{{ article.title }}</h2>
         <p>{{ article.introduction }}</p>
