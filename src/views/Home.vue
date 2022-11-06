@@ -10,13 +10,15 @@
           <AvatarBox class="paper"></AvatarBox>
           <!-- 标签云 -->
           <TagsBox class="paper"></TagsBox>
+          <!-- 动态目录 -->
+          <router-view name="sidebar"></router-view>
         </div>
         <!-- 文章栏 -->
         <div class="col sm-12 md-9">
           <!-- 搜索框 导航 -->
           <InputBar></InputBar>
           <!-- 列表 文章内容 -->
-          <router-view :hideImage="hideImage" :key="$route.fullPath"></router-view>
+          <router-view :hideImage="hideImage" :key="$route.fullPath" name="default"></router-view>
         </div>
       </div>
     </div>

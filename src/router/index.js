@@ -29,7 +29,10 @@ const routes = [
       },
       {
         path: 'article/:id',
-        component: __import__('ArticleDetail'),
+        components: {
+          default: __import__('ArticleDetail'),
+          sidebar: __import__('ArticleCatalog'),
+        } 
       },
       {
         path: 'search',

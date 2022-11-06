@@ -1,6 +1,6 @@
 <template>
   <div class="container-sm border border-primary" style="text-align: center; margin-top: 10px;">
-    <h5 style="margin: 10px;">TAGS</h5>
+    <h4 style="margin: 10px;">TAGS</h4>
     <div>
       <span 
         class="badge" 
