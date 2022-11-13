@@ -93,8 +93,6 @@ export default {
   beforeDestroy() {
 
   }
-
-  
 }
 </script>
 
@@ -144,7 +142,7 @@ export default {
 #player {
   position: relative;
   top: 65%;
-  left: 50%;
+  left: calc(50% - 75px);
   margin: -80px 0 0 -60px;
 }
 

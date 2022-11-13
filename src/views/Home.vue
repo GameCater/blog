@@ -6,12 +6,15 @@
       <div class="row flex-top flex-spaces">
         <!-- 侧边栏 -->
         <div :class="{'hide': hideSide, 'col': true, 'md-3': true, 'aside': true}" style="min-width: 250px;">
-          <!-- 站长信息 -->
-          <AvatarBox class="paper"></AvatarBox>
-          <!-- 标签云 -->
-          <TagsBox class="paper"></TagsBox>
-          <!-- 动态目录 -->
-          <router-view name="sidebar"></router-view>
+          <!-- 9999vh高度的设置参考sticky定位要求 -->
+          <div :style="{ 'height': sideHeight }"> 
+            <!-- 站长信息 -->
+            <AvatarBox class="paper"></AvatarBox>
+            <!-- 标签云 -->
+            <TagsBox class="paper"></TagsBox>
+            <!-- 动态目录 -->
+            <router-view name="sidebar" style="position: sticky; top: 30px;"></router-view>
+          </div>
         </div>
         <!-- 文章栏 -->
         <div class="col sm-12 md-9">
@@ -51,6 +54,8 @@ export default {
       timer: false, // 获取视口宽度计时器
       hideImage: false, // 隐藏媒体元素
       themeMode: true, // true 默认白色主题  false 黑色主题
+
+      sideHeight: '',
     }
   },
   watch: {
@@ -117,6 +122,10 @@ export default {
   },
   created() {
     this.transformLayout();
+
+    this.$bus.$on('on-height-change', (height) => {
+      this.sideHeight = height.replace('px', '') / 3 * 2 + 'px'; // 待优化
+    })
   }
 }
 </script>

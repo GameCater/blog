@@ -1,5 +1,5 @@
 <template>
-  <div class="container-lg border border-primary paper" style="margin-top: 60px; padding: 10px 20px;">
+  <div ref="mainBody" class="container-lg border border-primary paper" style="margin-top: 60px; padding: 10px 20px;">
     <!-- 文章列表 -->
     <ArticleCard
       v-for="(article, idx) in articlesInfo.data" 
@@ -106,6 +106,15 @@ export default {
       // console.log('监听到tagsChanged', selectedTags);
       this.selectedTags = [...selectedTags];
     });
+
+  },
+  beforeUpdate() {
+    // 通知父组件自己的高度
+    this.$nextTick(() => {
+      const el = this.$refs.mainBody;
+      const height = window.getComputedStyle(el).height;
+      this.$bus.$emit('on-height-change', height);
+    })
   },
   beforeDestroy() {
     this.$bus.$off('tagsChanged');

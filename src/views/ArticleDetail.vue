@@ -22,9 +22,7 @@
       </div>
 
       <!-- 文章内容 -->
-      <div class="content" v-html="md2html">
-
-      </div>
+      <div ref="mainBody" class="content" v-html="md2html"></div>
     </div>
     <div class="container-lg border border-primary paper" style="height: 300px; margin-top: 20px;">
       
@@ -114,6 +112,14 @@ export default {
     this.fetchArticleDetail();
     this.initialMarked();
   },
+  beforeUpdate() {
+    // 通知父组件自己的高度
+    this.$nextTick(() => {
+      const el = this.$refs.mainBody;
+      const height = window.getComputedStyle(el).height;
+      this.$bus.$emit('on-height-change', height);
+    })
+  }
 }
 </script>
 

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import nprogress from 'nprogress'
 
 Vue.use(VueRouter)
 
@@ -58,11 +59,20 @@ const routes = [
 ]
 
 const router = new VueRouter({
+  mode: 'hash',
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  nprogress.start();
+  setTimeout(() => { // 1s 延迟
+    next();
+  }, 1000);
 })
 
 // 路由后置钩子 处理页面辅助功能、更改页面标题等
 router.afterEach((to, from) => {
+  nprogress.done();
   window.scrollTo(0, 0);
 })
 
