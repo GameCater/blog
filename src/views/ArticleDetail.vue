@@ -12,7 +12,8 @@
         <div class="tags">
           <i class="gg-tag"></i>
           <span v-if="article.tags.length">
-            <span v-for="(tag, idx) in article.tags" :key="idx" style="margin: 0 2px; padding: 0 3px;">{{ tag.name }}</span>
+            <span v-for="(tag, idx) in article.tags" :key="idx" style="margin: 0 2px; padding: 0 3px;">{{ tag.name
+            }}</span>
           </span>
           <span v-else>undefined</span>
         </div>
@@ -25,7 +26,7 @@
       <div ref="mainBody" class="content" v-html="md2html"></div>
     </div>
     <div class="container-lg border border-primary paper" style="height: 300px; margin-top: 20px;">
-      
+
     </div>
   </div>
 </template>
@@ -42,7 +43,8 @@ export default {
         content: '',
         body: '',
         date: '',
-        comment: 0
+        comment: 0,
+        html: ''
       },
       maxTitle: 6, // 存储文章最大标签
       toc: [], // 文章所有标签
@@ -51,7 +53,8 @@ export default {
   computed: {
     // md解析为html
     md2html() {
-      return marked.parse(this.article.body || '');
+      // return marked.parse(this.article.body || '');
+      return this.article.html;
     }
   },
   watch: {
@@ -62,7 +65,7 @@ export default {
   methods: {
     fetchArticleDetail() {
       this.$http.get(`/article/${this.$route.params.id}`).then(response => {
-        // console.log(response.data.data);
+        console.log(response.data.data);
         this.article = response.data.data;
       })
     },
@@ -95,7 +98,7 @@ export default {
 
       marked.setOptions({
         renderer: renderer,
-        highlight: function(code, lang) { // 语法高亮
+        highlight: function (code, lang) { // 语法高亮
           const language = hljs.getLanguage(lang) ? lang : 'plaintext';
           return hljs.highlight(code, { language }).value;
         },
@@ -140,7 +143,7 @@ export default {
 .infos {
   padding: 5px 15px;
 
-  & > div {
+  &>div {
     display: inline-block;
     margin-right: 12px;
     color: #aaa;

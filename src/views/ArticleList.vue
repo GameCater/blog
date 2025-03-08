@@ -1,11 +1,7 @@
 <template>
   <div ref="mainBody" class="container-lg border border-primary paper" style="margin-top: 60px; padding: 10px 20px;">
     <!-- 文章列表 -->
-    <ArticleCard
-      v-for="(article, idx) in articlesInfo.data" 
-      :key="idx"
-      :article="article"
-      :hideImage="hideImage">
+    <ArticleCard v-for="(article, idx) in articlesInfo.data" :key="idx" :article="article" :hideImage="hideImage">
     </ArticleCard>
     <p style="text-align: center; cursor: pointer;" @click="loadMore">{{ moreTip }}</p>
   </div>
@@ -49,7 +45,7 @@ export default {
       this.articlesInfo.data = this.articlesInfo.data.filter((article) => {
         return val.every(tagId => {
           let i = 0;
-          for (; i < article.tags.length; i ++) {
+          for (; i < article.tags.length; i++) {
             if (article.tags[i]._id === tagId) {
               return true;
             }
@@ -78,6 +74,7 @@ export default {
         }
       }).then((response) => {
         const { data } = response;
+
         if (!data.data) return;
         const handled = data.data.map(articleObj => {
           articleObj.link = articleObj._id;
@@ -93,7 +90,7 @@ export default {
     },
     loadMore() {
       if (this.paging.page >= this.articlesInfo.maxPage) return;
-      
+
       this.paging.page += 1;
       this.fetchArticles();
     }
@@ -122,6 +119,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
